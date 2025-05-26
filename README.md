@@ -1,1 +1,25 @@
-# 24B2133_AIC
+AI Community Assignment
+-
+For each question, below are the setup steps for local excecution, basic explanation of the problem, my analysis, experiments and comments, all the links to resources used. Before starting, i would like to mention that i had worked with MLP and CNN earlier so i had experience in the question 2 but for question 1 and 3, I had to read up on the internet and understand what their respective topics did, so both of those questions contain a readme file explaining what i collected from the resources and what my understandings were. 
+
+Question 1 
+-
+Steps for local excecution : Use the requirements.txt file to install all the required libraries for the question. Once you download the github repo, you should be directly able to run the jupyter notebook by running all. Note : for this i have used python 3.10.16 in my venv. I have also mentioned a check for GPU support.
+
+Explanation of the question : The train.csv file contains a lot of statements, each with a label of the sector or topic of study to which it is related to. Using preprocessing by stop word removal, punctuation elimination and lemmatization. We also converted the labels to the data into encoded format so it is easy for us to access them. Tokenizing the sentences and return tensors with the sentence present in a tensor. Then i used the BERT base-uncased model to embedd my tokenized sentence into vectors. Based on this model, the vectors to each type of sector is placed in a high dimensional space. Using this dataset, the model is trained, i.e. the model can predict when any random sentence given based on its semantics, that the given sentence is belonging to which class. At the end of the program, i have tried a random statement. 
+
+Resource used : 
+3Blue1Brown videos - https://youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi&si=pDW8mDsZIaifo1Ks
+JayAlammar paper on BERT - https://jalammar.github.io/illustrated-bert/
+DataCamp website for basics of NLP - https://www.datacamp.com/tutorial/text-analytics-beginners-nltk
+
+A few things that i inferred from this question :
+1. The preprocessing of data is very important, it prevents the model from focusing on words that don't add meaning or might take the model off-track. Also, the algorithm i used didn't remove numbers but i feel that numbers being used for NLP won't be useful sometimes when the data means something else, so that is something i wasn't sure about.
+2. Tokenization of the sentence using the bert base-uncased model without specifying the max length for the tokenization sometimes make the model train for a lot longer, i used a GPU to train my model but without using any max length defined, it took more than 4-5 hours to even close to completing the training. So i had to add the max length to be 128, then too it took around 3 hours to train the model on a gpu. Hence trainng and building these models from scratch take a lot of computational power and building an attention mechanism and mlp transformer block from scratch would be very difficult for my computer. Using the bert model was better.
+3. The accuracy of the model is good, hence most of the predictions are correct. The precision and recall of the model are in a decent range indicating that the model avoids false positives well and detects most positives, the validation loss is mildly high suggesting that there might be some overfitting. Overall, the F1 score of the model is balanced indicating that both the false positives and negatives are well managed.
+4. The model isn't quite perfect yet, some random sentences which i input at the end for testing the model were given some different labels than expected. The reason for this might be that the vectors present in the high-dimensional space might be in close proximity for some cases, so to prevent this we might try to decrease the threshold for accepting the query to be matched. Another possible reason that i can think of is that some queries which i add might not have some embeddings exactly close to those of the existing labels, so they might find the nearest and output them.
+
+
+
+Question 2
+-
