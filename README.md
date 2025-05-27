@@ -23,3 +23,25 @@ A few things that i inferred from this question :
 
 Question 2
 -
+Steps for local excecution : Import the repo and all the test train files have been kept with the ipynb file, and all paths are set. Just run the notebook and check the results.
+
+Explanation of the question : Using a pretrained CNN model, by freezing its lower layers and then adapting a new Linear layer for converting the output to our usage that was to classify given images into 10 classes of fashion clothing. Then once overlaying our layer on top of the pretrained CNN, unfreeze the layers to get the best of the model. This method of using a pretrained model becuase we cannot train a model on a very large data ourselves due to limited computation power is known as transfer learning. For my implementation i used the ResNet50 model. 
+
+Resources Used : Patrick Loeber's series on PyTorch -  https://youtube.com/playlist?list=PLqnslRFeH2UrcDBWF5mfPGpqQDSta6VK4&si=ob2COI27kHo4Z-6J
+
+Insights and errors : 
+1. I had not previously worked with Ubyte files, instead i imported it directly from torchvision or keras datasets. So i learnt how to use Ubyte files with help of CHatgpt and implemented it into my program.
+2. The accuracy for my model even after unfreezing the bottom layers was still decent but it could have been much better, it might be achieved by increasing the number of layers or the neurons per each layer
+3. Since we are identifying clothes and fashion accessories, it is better to have more neurons per layer so that many different features for each type of clothing can be understood by the model and find them.
+
+
+Question 3
+-
+Steps for local excecution : Add any PDF into the folder and change the path in the ipynb file to use the PDF. By default, i have used a SOM101 module as the pdf and tested the model on that. 
+
+Explanation of question : I have described the question and the theory behind it in the a theory md file in the Q3 folder in very detail.
+
+1. I tried two different ways for semantic chunking, first i tried to create chunks of roughly 300 words or tokens assuming that most of the semantics would be covered in it but there was a chance of error. So instead i used a basic separation using paragraphs, because generally in any pdf the author has separated the content into paragraphs for clear outline between different topics. So for once i divided the chunks on basis of paragraphs, then i applied semantic chunking, i.e. embedding each chunk with a vector and then on the basis of very closesly placed vectors for different chunks, we merged those chunks to get semantically merged chunks.
+2. We can use more than 3 nearest neighbours for the query, but it is generally okay to use only 3 because in all the testings i did, using top 3 almost always gave the perfect answer based on the context of the pdf.
+3. The groq api used many of the exact words from the pdf as it is which might suggest that the groq api uses more of the content directly from the pdf rather than using its LLM feature to predict and develop follow up text.
+4. I didn't know exactly how the groq api works so i had to use some external help to understand how to prompt must be sent to the api key. 
